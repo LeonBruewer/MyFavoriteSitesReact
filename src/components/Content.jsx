@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { Mode } from 'chayns-components/lib';
-import UserList from './user/UserList';
-import PersonFinder from './personFinder/PersonFinderWrapper';
+import SiteList from './siteList/siteList';
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -52,7 +50,7 @@ export default class Content extends React.Component {
                  *
                  * The UAC-Group 1 is defined for chayns-Manager
                  */}
-                
+                <SiteList/>
             </div>
         );
     }
