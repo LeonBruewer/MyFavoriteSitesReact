@@ -21,10 +21,7 @@ export default class SearchBar extends React.Component {
         clearTimeout(this.timeout);
         this.timeout = setTimeout( () => {
             this.setState({searchTerm: newValue});
-            let searchTerm = this.default;
-            
-            if(this.state.searchTerm !== '')
-                searchTerm = this.state.searchTerm;
+            let searchTerm = this.state.searchTerm !== '' ? this.state.searchTerm : this.default;
 
             this.onChangeAction(searchTerm);
         }, 500);
