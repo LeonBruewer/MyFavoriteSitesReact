@@ -50,7 +50,7 @@ export default class Content extends React.Component {
                  *
                  * The UAC-Group 1 is defined for chayns-Manager
                  */}
-                <SiteList/>
+                 <SiteList/>
             </div>
         );
     }
