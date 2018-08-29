@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from '../searchBar/searchBar';
 import ListItem from '../listItem/listItem';
+import fetchSiteList from '../../utils/fetchData';
 
 export default class SiteList extends React.Component {
     constructor (props) {
@@ -8,7 +9,13 @@ export default class SiteList extends React.Component {
     }
 
     createList = (searchTerm) => {
-        console.log(searchTerm);
+        let filter = '&Take=30&skip=0';
+
+        fetchSiteList(searchTerm, filter).then((data) => {
+            console.log(data);
+        }).catch((ex) => {
+            console.log('error:' + ex);
+        });
     }
 
     render = () =>
