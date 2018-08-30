@@ -47,7 +47,8 @@ export default class SiteList extends React.Component {
             this.setState({list: elementList, showMoreStyleDisplay: this.showMoreStyleDisplay});
             
         }).catch((ex) => {
-            console.log('error:' + ex);
+            this.setState({list: 'Keine Ergebnisse gefunden.'});
+            chayns.hideWaitCursor();
         });
     }
 
