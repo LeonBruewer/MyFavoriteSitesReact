@@ -1,7 +1,12 @@
 import React from 'react';
-import './listItem.scss';
+import './ListItem.scss';
+import PropTypes from 'prop-types';
 
-export default class ListItem extends React.Component {
+const propTypes = {
+    title: PropTypes.string.isRequired
+};
+
+class ListItem extends React.Component {
     constructor(props) {
         super(props);
 
@@ -28,3 +33,7 @@ export default class ListItem extends React.Component {
     </div>
     ;
 }
+
+ListItem.propTypes = propTypes;
+
+export default ListItem;

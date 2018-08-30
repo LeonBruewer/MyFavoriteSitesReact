@@ -7,11 +7,17 @@ import Content from './components/Content';
 /**
  * Stateless Component App which holds the Components Intro and Content
  */
-const App = () => (
-    <div>
-        <Intro/>
-        <Content/>
-    </div>
-);
+class App extends React.Component {
+    constructor() {
+        super();
+    }
+
+    render = () => (
+        <div>
+            <Intro />
+            <Content />
+        </div>
+    );
+}
 
 export default hot(module)(App);

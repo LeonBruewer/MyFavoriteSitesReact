@@ -1,5 +1,5 @@
 import React from 'react';
-import './accordionSearchBar.scss';
+import './AccordionSearchBar.scss';
 
 export default class SearchBar extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ export default class SearchBar extends React.Component {
         };
 
         this.onChangeAction = props.action;
-        this.onChangeAction(this.default);
+        this.onChangeAction(this.default, 0);
     }
 
     onInputChange = (e) => {
@@ -24,7 +24,7 @@ export default class SearchBar extends React.Component {
             this.setState({searchTerm: newValue});
             let searchTerm = this.state.searchTerm !== '' ? this.state.searchTerm : this.default;
 
-            this.onChangeAction(searchTerm);
+            this.onChangeAction(searchTerm, 0);
         }, 500);
     }
 

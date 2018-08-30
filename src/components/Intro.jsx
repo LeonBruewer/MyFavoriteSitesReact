@@ -7,9 +7,7 @@ const Intro = () => (
         <h1 className="headline">
             {HEADLINE}
         </h1>
-        <p>
-            {DESCRIPTION}
-        </p>
+        {DESCRIPTION}
     </div>
 );
 
