@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SiteList from './siteList/siteList';
+import SiteList from './siteList/SiteList';
 import AddSite from './addSite/addSite';
 
 export default class Content extends React.Component {
@@ -13,6 +13,7 @@ export default class Content extends React.Component {
         this.state = {
             users: []
         };
+        console.log(this.props.formOpen);
     }
 
     /**
@@ -51,8 +52,8 @@ export default class Content extends React.Component {
                  *
                  * The UAC-Group 1 is defined for chayns-Manager
                  */}
-                 <SiteList/>
-                 <AddSite title="Seite hinzufügen"/>
+                 <SiteList open={!this.props.formOpen}/>
+                 <AddSite open={this.props.formOpen} title="Seite hinzufügen"/>
             </div>
         );
     }

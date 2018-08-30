@@ -1,5 +1,5 @@
 import React from 'react';
-import './accordionSearchBar.scss';
+import './AccordionSearchBar.scss';
 
 export default class SearchBar extends React.Component {
     constructor(props) {
