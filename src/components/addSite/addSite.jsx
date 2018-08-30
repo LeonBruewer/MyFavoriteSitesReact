@@ -7,7 +7,7 @@ export default class AddSite extends React.Component {
         this.state = {
             inpName: '',
             inpStreet: '',
-            inpPLZ: '',
+            inpPlz: '',
             inpOrt: '',
             inpMail: '',
             inpComment: ''
@@ -15,19 +15,28 @@ export default class AddSite extends React.Component {
     }
 
     onInputChange = (e) => {
-        let value = e.target.value;
-
         this.setState({[e.target.id]: e.target.value});
-
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout( () => {
-            
-            this.setState({name: value});
-        }, 800);
     }
 
     submit = () => {
-        alert();
+        let name = this.state.inpName;
+        let street = this.state.inpStreet;
+        let plz = this.state.inpPlz;
+        let ort = this.state.inpOrt;
+        let mail = this.state.inpMail;
+        let comment = this.state.inpComment;
+
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$/.test(mail)) {
+            chayns.intercom.sendMessageToPage({ 
+                text: `Name: ${name}  \nStraße: ${street}  \nPLZ: ${plz}  \nOrt: ${ort}  \nE-Mail: ${mail}  \nKommentar: ${comment}`
+            }).then((data) => {            
+                if(data.status == 200)
+                chayns.dialog.alert('','Antrag wurde gestellt');
+            });
+        }
+        else {
+            chayns.dialog.alert('', 'Du musst eine gültige E-Mail Adresse angeben');
+        }
     }
 
     render = () =>
@@ -44,7 +53,7 @@ export default class AddSite extends React.Component {
             <input type="text" value={this.state.inpMail} onChange={this.onInputChange} className="input" id="inpMail" placeholder="E-Mail" style={{width: "100%"}} />
             <textarea type="text" value={this.state.inpComment} onChange={this.onInputChange} className="input" id="inpComment" placeholder="Kommentar" style={{width: "100%"}}></textarea>
             <div style={{textAlign: "center", marginTop: "15px"}}>
-                <button id="send" className="button">Senden</button>
+                <button id="send" onClick={this.submit} className="button">Senden</button>
             </div>
         </div>
     </div>
