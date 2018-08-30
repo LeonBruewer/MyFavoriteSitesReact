@@ -22,7 +22,7 @@ export default class SiteList extends React.Component {
             console.log(data);
             let list = data.map( (d) => this.createListItems(d.appstoreName, d.siteId));
             this.setState({list: list});
-            console.log('list: ' + this.state.list);
+            
         }).catch((ex) => {
             console.log('error:' + ex);
         });
