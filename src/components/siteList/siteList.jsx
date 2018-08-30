@@ -2,27 +2,54 @@ import React from 'react';
 import SearchBar from '../searchBar/searchBar';
 import ListItem from '../listItem/listItem';
 import fetchSiteList from '../../utils/fetchData';
+import ShowMore from '../showMore/showMore';
 
 export default class SiteList extends React.Component {
     constructor (props) {
         super(props);
-        this.sitesPerFetch = 30;
-        this.skip = 0;
+        this.sitesPerFetch = 20;
         this.displayedSites = 0;
+        this.showMoreStyleDisplay = 'none';
 
         this.state = {
-
+            showMoreStyleDisplay: 'none'
         };
     }
 
-    createList = (searchTerm) => {
-        let filter = `&Take=${this.sitesPerFetch}&skip=${this.skip}`;
+    showMore = () => {
+        this.createList(this.searchTerm, this.displayedSites);
+    }
 
-        fetchSiteList(searchTerm, filter).then((data) => {
-            console.log(data);
-            let list = data.map( (d) => this.createListItems(d.appstoreName, d.siteId));
-            this.setState({list: list});
+    createList = (searchTerm, skip) => {
+        this.searchTerm = searchTerm;
+
+        fetchSiteList(searchTerm, this.sitesPerFetch, skip).then((d) => {
+            let {data, allowShowMore} = d;
+            this.showMoreStyleDisplay = allowShowMore === true ? 'block' : 'none';
+            console.log('show more ' + allowShowMore);
+
+            this.displayedSites = skip + data.length;
+
+            let elementList = this.state.list;
+            if (skip === 0) {
+                elementList = data.map( (d) => this.createListItems(d.appstoreName, d.siteId));
+                console.log('skip 0');
+            }
+        
+            if (skip > 0){
+                
+                let oldList = this.state.list;
+                console.log(oldList);
+                let newList = data.map( (d) => this.createListItems(d.appstoreName, d.siteId));
+                console.log(newList);
+                elementList = oldList.concat(newList);
+                console.log(elementList);
+            }
+
+            this.setState({list: undefined});
+            this.setState({list: elementList, showMoreStyleDisplay: this.showMoreStyleDisplay});
             
+            console.log(this.displayedSites);
         }).catch((ex) => {
             console.log('error:' + ex);
         });
@@ -32,11 +59,12 @@ export default class SiteList extends React.Component {
 
     render = () =>
     <div className="accordion accordion--open" data-group="mfs" id="sitesAccordion">
-        <div className="accordion__head accordion__head--search">Sites<SearchBar default="chayns" action={this.createList}/></div>
+        <div className="accordion__head accordion__head--search">Sites<SearchBar default="leon" action={this.createList}/></div>
         <div className="accordion__body">
             <div className="accordion__content">
                 <div id="siteList">
                     {this.state.list}
+                    <ShowMore display={this.state.showMoreStyleDisplay} onClick={this.showMore}/>
                 </div>
             </div>
         </div>
