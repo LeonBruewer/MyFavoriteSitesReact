@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SiteList from './siteList/siteList';
+import AddSite from './addSite/addSite';
 
 export default class Content extends React.Component {
     constructor(props) {
@@ -51,6 +52,7 @@ export default class Content extends React.Component {
                  * The UAC-Group 1 is defined for chayns-Manager
                  */}
                  <SiteList/>
+                 <AddSite title="Seite hinzufügen"/>
             </div>
         );
     }
