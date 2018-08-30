@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from '../searchBar/searchBar';
 import ListItem from '../listItem/listItem';
 import fetchSiteList from '../../utils/fetchData';
+import ShowMore from '../showMore/showMore';
 
 export default class SiteList extends React.Component {
     constructor (props) {
@@ -9,19 +10,23 @@ export default class SiteList extends React.Component {
         this.sitesPerFetch = 30;
         this.skip = 0;
         this.displayedSites = 0;
+        this.showMoreStyleDisplay = 'none';
 
         this.state = {
-
+            showMoreStyleDisplay: 'none'
         };
     }
 
     createList = (searchTerm) => {
-        let filter = `&Take=${this.sitesPerFetch}&skip=${this.skip}`;
+        let filter = `&Take=${this.sitesPerFetch + 1}&skip=${this.skip}`;
 
         fetchSiteList(searchTerm, filter).then((data) => {
-            console.log(data);
+            if (data.length > this.sitesPerFetch) {
+                this.showMoreStyleDisplay = 'block';
+                data.pop();
+            }
             let list = data.map( (d) => this.createListItems(d.appstoreName, d.siteId));
-            this.setState({list: list});
+            this.setState({list: list, showMoreStyleDisplay: this.showMoreStyleDisplay});
             
         }).catch((ex) => {
             console.log('error:' + ex);
@@ -37,6 +42,7 @@ export default class SiteList extends React.Component {
             <div className="accordion__content">
                 <div id="siteList">
                     {this.state.list}
+                    <ShowMore display={this.state.showMoreStyleDisplay}/>
                 </div>
             </div>
         </div>
