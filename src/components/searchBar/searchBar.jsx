@@ -12,6 +12,7 @@ export default class SearchBar extends React.Component {
         };
 
         this.onChangeAction = props.action;
+        this.onChangeAction(this.default);
     }
 
     onInputChange = (e) => {

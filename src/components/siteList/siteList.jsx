@@ -1,15 +1,34 @@
 import React from 'react';
 import SearchBar from '../searchBar/searchBar';
 import ListItem from '../listItem/listItem';
+import fetchSiteList from '../../utils/fetchData';
 
 export default class SiteList extends React.Component {
     constructor (props) {
         super(props);
+        this.sitesPerFetch = 30;
+        this.skip = 0;
+        this.displayedSites = 0;
+
+        this.state = {
+
+        };
     }
 
     createList = (searchTerm) => {
-        console.log(searchTerm);
+        let filter = `&Take=${this.sitesPerFetch}&skip=${this.skip}`;
+
+        fetchSiteList(searchTerm, filter).then((data) => {
+            console.log(data);
+            let list = data.map( (d) => this.createListItems(d.appstoreName, d.siteId));
+            this.setState({list: list});
+            
+        }).catch((ex) => {
+            console.log('error:' + ex);
+        });
     }
+
+    createListItems = (title, id) => <ListItem title={title} description={id} key={id}/>;
 
     render = () =>
     <div className="accordion accordion--open" data-group="mfs" id="sitesAccordion">
@@ -17,7 +36,7 @@ export default class SiteList extends React.Component {
         <div className="accordion__body">
             <div className="accordion__content">
                 <div id="siteList">
-                    <ListItem title="lb-club" description="77890-29897"/>
+                    {this.state.list}
                 </div>
             </div>
         </div>
