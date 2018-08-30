@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchBar from '../searchBar/searchBar';
-import ListItem from '../listItem/listItem';
+import SearchBar from '../searchBar/SearchBar';
+import ListItem from '../listItem/ListItem';
 import fetchSiteList from '../../utils/FetchData';
 import ShowMore from '../showMore/ShowMore';
 
@@ -12,7 +12,6 @@ export default class SiteList extends React.Component {
         this.showMoreStyleDisplay = 'none';
 
         this.state = {
-            open: this.props.open,
             showMoreStyleDisplay: 'none'
         };
         
@@ -52,12 +51,24 @@ export default class SiteList extends React.Component {
         });
     }
 
-    createListItems = (title, id) => <ListItem title={title} description={id} key={id}/>;
+    createListItems = (title, id) => (
+        <ListItem
+            title={title}
+            description={id}
+            key={id}
+        />
+    );
 
     render = () =>
     (
-        <div className={`accordion ${this.state.open ? 'accordion--open' : ''}`} data-group="mfs" id="sitesAccordion">
-            <div className="accordion__head accordion__head--search">Sites<SearchBar default="chayns" action={this.createList}/></div>
+        <div className="accordion accordion--open" data-group="mfs" id="sitesAccordion">
+            <div className="accordion__head accordion__head--search">
+                Sites
+                <SearchBar
+                    default = "chayns"
+                    action={this.createList}
+                />
+            </div>
             <div className="accordion__body">
                 <div className="accordion__content">
                     <div id="siteList">

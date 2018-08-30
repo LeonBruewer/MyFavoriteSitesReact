@@ -1,6 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class AddSite extends React.Component {
+const propTypes = {
+    title: PropTypes.string.isRequired
+};
+
+class AddSite extends React.Component {
     constructor(props) {
         super(props);
 
@@ -40,7 +45,7 @@ export default class AddSite extends React.Component {
     }
 
     render = () =>
-    (<div className={`accordion ${this.props.open ? 'accordion--open': ''}`} data-group="mfs" id="addSite">
+    (<div className="accordion" data-group="mfs" id="addSite">
     <div className="accordion__head">{this.props.title}<p className="badge right"><i className="fa fa-plus "></i></p></div>
     <div className="accordion__body">
         <div className="accordion__content">
@@ -59,3 +64,7 @@ export default class AddSite extends React.Component {
     </div>
     </div>);
 }
+
+AddSite.propTypes = propTypes;
+
+export default AddSite;

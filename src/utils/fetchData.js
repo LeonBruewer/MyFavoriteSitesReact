@@ -6,7 +6,7 @@ let defaultData = null;
         let baseUrl = 'https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=';
         let filter = `&Take=${take + 1}&skip=${skip}`;
         let fullUrl = baseUrl + searchTerm + filter;
-        console.log(fullUrl);
+        
             fetch(fullUrl)
             .then( (response) => {
                 return response.json();

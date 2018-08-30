@@ -10,18 +10,12 @@ import Content from './components/Content';
 class App extends React.Component {
     constructor() {
         super();
-        this.state = { formOpen: false };
-        this.handleFormOpen = this.handleFormOpen.bind(this);
-    }
-
-    handleFormOpen() {
-        this.setState({ formOpen: true });
     }
 
     render = () => (
         <div>
-            <Intro callback={() => this.handleFormOpen()} />
-            <Content formOpen={this.state.formOpen} />
+            <Intro />
+            <Content />
         </div>
     );
 }
