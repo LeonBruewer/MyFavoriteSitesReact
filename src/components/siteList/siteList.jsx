@@ -6,6 +6,9 @@ import fetchSiteList from '../../utils/fetchData';
 export default class SiteList extends React.Component {
     constructor (props) {
         super(props);
+        this.sitesPerFetch = 30;
+        this.skip = 0;
+        this.displayedSites = 0;
 
         this.state = {
 
@@ -13,19 +16,19 @@ export default class SiteList extends React.Component {
     }
 
     createList = (searchTerm) => {
-        let filter = '&Take=30&skip=0';
+        let filter = `&Take=${this.sitesPerFetch}&skip=${this.skip}`;
 
         fetchSiteList(searchTerm, filter).then((data) => {
             console.log(data);
-            this.list = data.map( () => this.createListItems(data.appstoreName, data.siteId));
-            this.setState({list: this.list});
-            console.log('list: ' + this.list);
+            let list = data.map( (d) => this.createListItems(d.appstoreName, d.siteId));
+            this.setState({list: list});
+            console.log('list: ' + this.state.list);
         }).catch((ex) => {
             console.log('error:' + ex);
         });
     }
 
-    createListItems = (title, id) => <ListItem title={title} description={id}/>;
+    createListItems = (title, id) => <ListItem title={title} description={id} key={id}/>;
 
     render = () =>
     <div className="accordion accordion--open" data-group="mfs" id="sitesAccordion">
